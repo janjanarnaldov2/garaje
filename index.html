@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Book your game — Garaje Backyard Gamezone</title>
 <meta name="description" content="Reserve a court at Garaje Backyard Gamezone, Mandug, Davao City. Open daily, 5am to 12am.">
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,7 +18,6 @@
   --blue-soft:#4A9BEA;
   --blue-wash:#E3EFFC;
   --ball:#D6E840;
-  --court:#2F8FCB;
   --paper:#F3F6FA;
   --white:#FFFFFF;
   --ink:#0C2A57;
@@ -31,46 +32,64 @@ body{
   font-family:'Barlow',system-ui,sans-serif;font-size:15px;line-height:1.45;
   -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
 }
-.wrap{max-width:1000px;margin:0 auto;padding:0 var(--gutter) 0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--gutter) 0}
 
 /* ---------- masthead ---------- */
 .top{background:var(--navy);color:var(--white);position:relative;overflow:hidden}
-.top::after{ /* the paint swipe, the flyer's signature device */
+.top::after{
   content:'';position:absolute;left:-4%;right:-4%;bottom:-16px;height:76px;background:var(--blue);
   clip-path:polygon(0 42%,7% 24%,19% 36%,31% 18%,44% 33%,58% 15%,71% 31%,84% 17%,94% 30%,100% 20%,100% 100%,0 100%);
   opacity:.95;
 }
-.top .wrap{position:relative;z-index:2;padding-top:26px;padding-bottom:34px}
-.mark{font-family:'Anton',sans-serif;font-size:clamp(42px,10vw,78px);line-height:.82;letter-spacing:.01em;margin:0}
-.mark em{font-style:normal;color:var(--blue-soft)}
-.sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
-  letter-spacing:.19em;font-size:clamp(11px,2.4vw,14px);margin:6px 0 0;color:var(--white);opacity:.82}
+.top .wrap{position:relative;z-index:2;padding-top:20px;padding-bottom:30px;
+  display:flex;align-items:center;gap:clamp(14px,3vw,28px)}
+.badge{width:clamp(88px,15vw,128px);height:auto;flex:none;display:block}
+.titles{min-width:0}
+/* The badge already says GARAJE / BACKYARD GAMEZONE, so the type beside it
+   carries the tagline and the address instead of repeating the name. */
 .tag{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;
-  font-size:clamp(17px,3.6vw,24px);margin:14px 0 0;color:var(--ball);letter-spacing:.02em}
-.tag .ball{display:inline-block;width:15px;height:15px;vertical-align:-2px;margin-right:7px}
+  font-size:clamp(21px,5.2vw,38px);margin:0;color:var(--ball);letter-spacing:.02em;line-height:1.02}
+.tag .ball{display:inline-block;width:clamp(15px,3vw,24px);height:clamp(15px,3vw,24px);
+  vertical-align:-2px;margin-right:8px}
+.sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.17em;font-size:clamp(10px,2.2vw,13px);margin:7px 0 0;color:var(--white);opacity:.8}
+@media (max-width:520px){
+  .top .wrap{flex-direction:column;text-align:center;gap:12px}
+}
 
-/* ---------- date stepper ---------- */
+/* ---------- control bar ---------- */
 .bar{background:var(--navy-deep);color:var(--white)}
-.bar .wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding-top:11px;padding-bottom:11px}
-.dates{display:flex;align-items:center;gap:3px}
-.dates button{font:700 15px/1 'Barlow Condensed',sans-serif;color:var(--white);background:rgba(255,255,255,.09);
+.bar .wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+  padding-top:11px;padding-bottom:11px}
+.nav{display:flex;align-items:center;gap:3px}
+.nav button{font:700 15px/1 'Barlow Condensed',sans-serif;color:var(--white);background:rgba(255,255,255,.09);
   border:0;padding:9px 14px;cursor:pointer;letter-spacing:.05em}
-.dates button:hover:not(:disabled){background:var(--blue)}
-.dates button:disabled{opacity:.25;cursor:not-allowed}
-#dateLabel{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
-  letter-spacing:.09em;font-size:16px;padding:0 12px;min-width:158px;text-align:center}
-#jump{font:700 11px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
-  background:transparent;border:1px solid rgba(255,255,255,.3);color:var(--white);padding:8px 12px;cursor:pointer}
-#jump:hover{border-color:var(--ball);color:var(--ball)}
+.nav button:hover:not(:disabled){background:var(--blue)}
+.nav button:disabled{opacity:.25;cursor:not-allowed}
+#rangeLabel{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.09em;font-size:16px;padding:0 12px;min-width:170px;text-align:center}
+.right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#today{font:700 11px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+  background:transparent;border:1px solid rgba(255,255,255,.3);color:var(--white);padding:9px 13px;cursor:pointer}
+#today:hover{border-color:var(--ball);color:var(--ball)}
+.toggle{display:flex;border:1px solid rgba(255,255,255,.3)}
+.toggle button{font:700 11px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+  background:transparent;border:0;color:var(--white);padding:9px 15px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--ball);color:var(--navy-deep)}
+#courtPick{background:rgba(255,255,255,.09);color:var(--white);border:1px solid rgba(255,255,255,.3);
+  font:600 13px 'Barlow',sans-serif;padding:8px 10px}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
 
-/* ---------- the court grid ---------- */
+/* ---------- the grid ---------- */
 .court{margin:22px 0 0;background:var(--white);border:2px solid var(--navy);
   box-shadow:6px 6px 0 rgba(12,42,87,.12);overflow-x:auto}
-.grid{display:grid;min-width:400px;position:relative}
-.head{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.11em;
-  font-size:14px;padding:11px 12px;background:var(--navy);color:var(--white);position:sticky;top:0;z-index:4}
-.head.corner{background:var(--navy)}
+.grid{display:grid;position:relative}
+.head{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  font-size:13px;padding:9px 10px;background:var(--navy);color:var(--white);position:sticky;top:0;z-index:4;
+  text-align:center;line-height:1.15}
+.head .dnum{display:block;font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.01em;margin-top:1px}
+.head.now{background:var(--blue)}
+.head.now .dnum{color:var(--ball)}
 .time{font-size:11px;font-weight:600;color:var(--mute);padding:3px 9px 0 0;text-align:right;
   height:var(--slot-h);border-right:2px solid var(--navy);letter-spacing:.04em}
 .slot{height:var(--slot-h);width:100%;background:transparent;border:0;
@@ -80,12 +99,14 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 .slot.past{cursor:not-allowed;background:repeating-linear-gradient(45deg,transparent 0 5px,rgba(107,126,153,.13) 5px 6px)}
 .slot.past:hover{background:repeating-linear-gradient(45deg,transparent 0 5px,rgba(107,126,153,.13) 5px 6px)}
 .taken{height:var(--slot-h);background:var(--blue);color:var(--white);
-  border-right:1px solid var(--white);border-bottom:1px solid rgba(255,255,255,.25);padding:4px 10px;overflow:hidden}
+  border-right:1px solid var(--white);border-bottom:1px solid rgba(255,255,255,.25);
+  padding:4px 8px;overflow:hidden}
 .taken.mid{border-bottom-color:transparent}
 .taken b{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
-  letter-spacing:.05em;font-size:14px;display:block;line-height:1.1}
-.taken small{font-size:10px;opacity:.8;letter-spacing:.05em;font-weight:600}
-#nowline{position:absolute;left:0;right:0;height:2px;background:var(--ball);pointer-events:none;z-index:3}
+  letter-spacing:.04em;font-size:13px;display:block;line-height:1.1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.taken small{font-size:10px;opacity:.8;letter-spacing:.04em;font-weight:600}
+#nowline{position:absolute;height:2px;background:var(--ball);pointer-events:none;z-index:3}
 #nowline svg{position:absolute;left:-7px;top:-6px}
 
 /* ---------- status + legend ---------- */
@@ -96,7 +117,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 #status.err{color:#C0392B}
 #status.ok{color:#127A4B}
 
-/* ---------- footer, echoing the flyer's info strip ---------- */
+/* ---------- footer ---------- */
 footer{margin-top:34px;background:var(--navy);color:var(--white)}
 .info{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:rgba(255,255,255,.14)}
 .info div{background:var(--navy);padding:18px 20px}
@@ -136,20 +157,26 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
 
 <div class="top">
   <div class="wrap">
-    <h1 class="mark">GARA<em>JE</em></h1>
-    <p class="sub">Backyard Gamezone &middot; Mandug, Davao City</p>
-    <p class="tag"><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#D6E840"/><g fill="#0C2A57"><circle cx="8" cy="8" r="1.6"/><circle cx="16" cy="9" r="1.6"/><circle cx="12" cy="14" r="1.6"/><circle cx="6" cy="15" r="1.4"/><circle cx="18" cy="16" r="1.4"/></g></svg>Our space. Our game.</p>
+    <img class="badge" src="./garaje-logo.png" width="360" height="343"
+         alt="Garaje Backyard Gamezone">
+    <div class="titles">
+    <h1 class="tag"><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#D6E840"/><g fill="#0C2A57"><circle cx="8" cy="8" r="1.6"/><circle cx="16" cy="9" r="1.6"/><circle cx="12" cy="14" r="1.6"/><circle cx="6" cy="15" r="1.4"/><circle cx="18" cy="16" r="1.4"/></g></svg>Our space. Our game.</h1>
+    <p class="sub">Ph4 Milkfish Street &middot; Mandug, Davao City</p>
+    </div>
   </div>
 </div>
 
 <div class="bar">
   <div class="wrap">
-    <div class="dates">
-      <button id="prev" aria-label="Previous day">&larr;</button>
-      <div id="dateLabel">&mdash;</div>
-      <button id="next" aria-label="Next day">&rarr;</button>
+    <div class="nav">
+      <button id="prev" aria-label="Previous">&larr;</button>
+      <div id="rangeLabel">&mdash;</div>
+      <button id="next" aria-label="Next">&rarr;</button>
     </div>
-    <button id="jump">Jump to now</button>
+    <div class="right">
+      <select id="courtPick" hidden aria-label="Court"></select>
+      <button id="today">Today</button>
+    </div>
   </div>
 </div>
 
@@ -159,6 +186,7 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
     <span><i style="background:#fff"></i>Open</span>
     <span><i style="background:var(--blue);border-color:var(--blue)"></i>Taken</span>
     <span><i style="background:var(--ball);border-color:var(--ball)"></i>Right now</span>
+    <span id="build" style="margin-left:auto;opacity:.65"></span>
   </div>
   <p id="status"></p>
 </div>
@@ -166,18 +194,9 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
 <footer>
   <div class="rule"></div>
   <div class="info">
-    <div>
-      <h3>Where</h3>
-      <p>Ph4 Milkfish Street, DDF Village,<br>Mandug, Davao City</p>
-    </div>
-    <div>
-      <h3>Open</h3>
-      <p>Monday to Sunday<br>5:00am &ndash; 12:00am</p>
-    </div>
-    <div>
-      <h3>Questions</h3>
-      <p><a href="https://facebook.com/akiridyoy">facebook.com/akiridyoy</a></p>
-    </div>
+    <div><h3>Where</h3><p>Ph4 Milkfish Street, DDF Village,<br>Mandug, Davao City</p></div>
+    <div><h3>Open</h3><p>Monday to Sunday<br>5:00am &ndash; 12:00am</p></div>
+    <div><h3>Questions</h3><p><a href="https://facebook.com/akiridyoy">facebook.com/akiridyoy</a></p></div>
   </div>
 </footer>
 
@@ -189,9 +208,12 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
     </header>
     <label for="fName">Your name</label>
     <input id="fName" maxlength="40" autocomplete="name" required>
+    <label for="fPhone">Mobile number</label>
+    <input id="fPhone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel"
+           placeholder="09XX XXX XXXX" required>
     <label for="fLen">How long</label>
     <select id="fLen"></select>
-    <label for="fCode">Member code</label>
+    <label for="fCode">Access code</label>
     <input id="fCode" type="password" autocomplete="off" required>
     <p id="dlgErr"></p>
     <div class="actions">
@@ -203,107 +225,193 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
 
 <script>
 /* ============================================================
-   CONFIG — set SCRIPT_URL after you deploy the Apps Script.
-   These values must match the ones in Code.gs.
+   CONFIG — these must match the values in Code.gs.
    ============================================================ */
-const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxWd30XS4_MQ2uJ8kKZs8GjX-oFZFk-5nAX4OkcKC_AsF5TkF7YxTnu33QAP2z2DQxAQg/exec';
+const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbzmuJBr99SZj_fbUwodl9GY0oqLwctaeUPFIeXwLAUUSOp5dckpRvfj2jJ76ke0BjrOmQ/exec';
 const COURTS       = ['Court 1'];
 const OPEN_HOUR    = 5;      // first slot starts 05:00
 const CLOSE_HOUR   = 24;     // last slot ends 24:00 (midnight)
 const SLOT_MINUTES = 60;
-const MAX_SLOTS    = 12;      // 12 x 60min = 24 hour ceiling
+const MAX_SLOTS    = 12;     // 12 x 60min = 12 hour ceiling
 const DAYS_AHEAD   = 31;
+const WEEK_STARTS_MONDAY = true;
+
+const POLL_SECONDS = 90;     // only fires while the tab is actually visible     // only fires while the tab is actually visible
 
 /* ---------- date helpers (all local time, no UTC anywhere) ---------- */
 const pad = n => String(n).padStart(2, '0');
 const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
 const addDays = (d, n) => { const c = new Date(d); c.setDate(c.getDate()+n); return c; };
+const sameDay = (a, b) => ymd(a) === ymd(b);
 const minsToHM = m => `${pad(Math.floor(m/60))}:${pad(m%60)}`;
 const hmToMins = s => { const [h,m] = s.split(':').map(Number); return h*60+m; };
+
+function startOfWeek(d) {
+  const c = new Date(d);
+  const shift = WEEK_STARTS_MONDAY ? (c.getDay() + 6) % 7 : c.getDay();
+  c.setDate(c.getDate() - shift);
+  c.setHours(0,0,0,0);
+  return c;
+}
 
 const SLOT_STARTS = [];
 for (let m = OPEN_HOUR*60; m < CLOSE_HOUR*60; m += SLOT_MINUTES) SLOT_STARTS.push(m);
 
-let viewDate = startOfToday();
-let bookings = [];
-let pending  = null;
+/* ---------- state ---------- */
+let anchor  = startOfToday();       // any date inside the visible week
+let court   = COURTS[0];            // which court the week view shows
+let data    = {};                   // 'YYYY-MM-DD' -> [bookings]
+let pending = null;
 let firstPaint = true;
+
+/** The seven days on screen, Monday through Sunday. */
+function visibleDays() {
+  const s = startOfWeek(anchor);
+  return Array.from({length:7}, (_, i) => addDays(s, i));
+}
+
+/** One column per day, all for the selected court. */
+function columns() {
+  return visibleDays().map(d => ({ date: d, court: court }));
+}
 
 /* ---------- data ---------- */
 async function load() {
   setStatus('Loading bookings\u2026');
   try {
-    const res  = await fetch(`${SCRIPT_URL}?date=${ymd(viewDate)}`);
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Could not read the calendar.');
-    bookings = data.bookings;
+    // One request covers the whole week — the script snaps any date to its Monday.
+    const res  = await fetch(`${SCRIPT_URL}?date=${ymd(visibleDays()[0])}&t=${Date.now()}`, { cache: 'no-store' });
+    const body = await res.json();
+    if (!body.ok) throw new Error(body.error);
+
+    if (!body.days) {
+      // The script answered, but with the old single-day shape. Almost always a
+      // deployment that was saved without picking Version: New version.
+      data = {};
+      safeRender();
+      document.getElementById('build').textContent = 'script ' + (body.build || 'OLD/unstamped');
+      setStatus('This URL is answering with the OLD single-day script, so bookings cannot be shown. In Apps Script: Deploy \u2192 Manage deployments \u2192 pencil \u2192 Version: New version. Check the URL matches SCRIPT_URL here.', 'err');
+      return;
+    }
+
+    data = body.days;                         // { 'YYYY-MM-DD': [...] }
+    document.getElementById('build').textContent = 'script ' + (body.build || 'unstamped');
     setStatus('');
   } catch (err) {
-    bookings = [];
+    data = {};
     setStatus('Cannot reach the booking service. Check the script URL, and that the web app is deployed for "Anyone".', 'err');
   }
-  render();
+  safeRender();
+}
+
+function bookingsFor(date, crt) {
+  const list = (data && data[ymd(date)]) || [];
+  return list.filter(b => b.court === crt);
 }
 
 /* ---------- rendering ---------- */
 function render() {
-  document.getElementById('dateLabel').textContent =
-    viewDate.toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'short' });
-  document.getElementById('prev').disabled = ymd(viewDate) === ymd(startOfToday());
-  document.getElementById('next').disabled = ymd(viewDate) === ymd(addDays(startOfToday(), DAYS_AHEAD));
+  const today = startOfToday();
+  const days  = visibleDays();
+  const cols  = columns();
 
+  // --- label + navigation state ---
+  const a = days[0], b = days[6];
+  const sameMonth = a.getMonth() === b.getMonth();
+  document.getElementById('rangeLabel').textContent = sameMonth
+    ? `${a.getDate()}\u2013${b.getDate()} ${b.toLocaleDateString(undefined,{month:'short'})}`
+    : `${a.getDate()} ${a.toLocaleDateString(undefined,{month:'short'})} \u2013 ${b.getDate()} ${b.toLocaleDateString(undefined,{month:'short'})}`;
+
+  document.getElementById('prev').disabled = b < today;
+  document.getElementById('next').disabled = a > addDays(today, DAYS_AHEAD - 1);
+  document.getElementById('courtPick').hidden = COURTS.length < 2;
+
+  // --- grid ---
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
-  grid.style.gridTemplateColumns = `54px repeat(${COURTS.length}, minmax(120px, 1fr))`;
+  const colMin = window.innerWidth < 560 ? 64 : 78;
+  grid.style.gridTemplateColumns = `54px repeat(${cols.length}, minmax(${colMin}px, 1fr))`;
+  grid.style.minWidth = `${54 + cols.length * colMin}px`;
 
-  grid.appendChild(el('div', 'head corner'));
-  COURTS.forEach(c => grid.appendChild(el('div', 'head', c)));
+  grid.appendChild(el('div', 'head'));
+  cols.forEach(c => {
+    const isNow = sameDay(c.date, today);
+    const h = el('div', 'head' + (isNow ? ' now' : ''));
+    h.textContent = c.date.toLocaleDateString(undefined, { weekday:'short' });
+    h.appendChild(el('span', 'dnum', String(c.date.getDate())));
+    grid.appendChild(h);
+  });
 
-  const isToday = ymd(viewDate) === ymd(startOfToday());
   const now = new Date();
-  const nowMins = now.getHours()*60 + now.getMinutes();
 
   SLOT_STARTS.forEach(startMins => {
-    grid.appendChild(el('div', 'time', startMins % 60 === 0 ? minsToHM(startMins) : ''));
+    grid.appendChild(el('div', 'time', minsToHM(startMins)));
 
-    COURTS.forEach(court => {
-      const hit = bookings.find(b =>
-        b.court === court && hmToMins(b.start) <= startMins && hmToMins(b.end) > startMins);
+    cols.forEach(c => {
+      const list = bookingsFor(c.date, c.court);
+      const hit  = list.find(b => hmToMins(b.start) <= startMins && hmToMins(b.end) > startMins);
 
       if (hit) {
         const first = hmToMins(hit.start) === startMins;
         const box = el('div', 'taken' + (first ? '' : ' mid'));
         if (first) box.innerHTML =
           `<b>${escapeHtml(hit.name)}</b><small>${hit.start}\u2013${hit.end}</small>`;
+        box.title = `${hit.name} \u00b7 ${hit.start}\u2013${hit.end}`;
         grid.appendChild(box);
         return;
       }
 
-      const past = isToday && startMins + SLOT_MINUTES <= nowMins;
+      // A slot is gone once it has STARTED — Code.gs rejects any start in the
+      // past, so blocking on start (not end) keeps the two rules in step.
+      const slotStart = new Date(c.date.getFullYear(), c.date.getMonth(), c.date.getDate(), 0, startMins);
+      const past = slotStart <= now;
       const btn = el('button', 'slot' + (past ? ' past' : ''));
       btn.type = 'button';
       btn.disabled = past;
-      btn.setAttribute('aria-label', `Book ${court} at ${minsToHM(startMins)}`);
-      if (!past) btn.onclick = () => openDialog(court, startMins);
+      btn.setAttribute('aria-label',
+        `Book ${c.court}, ${c.date.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})} at ${minsToHM(startMins)}`);
+      if (!past) btn.onclick = () => openDialog(c.date, c.court, startMins);
       grid.appendChild(btn);
     });
   });
 
-  drawNowLine(isToday, nowMins);
+  drawNowLine(cols);
   if (firstPaint) { firstPaint = false; jumpToNow(); }
 }
 
-function drawNowLine(isToday, nowMins) {
+/** Wrap render so a fault shows a message instead of a half-drawn grid. */
+function safeRender() {
+  try { render(); }
+  catch (err) {
+    console.error(err);
+    setStatus('The schedule could not be drawn: ' + err.message, 'err');
+  }
+}
+
+/** The line sits over today's column only — it means nothing on the other days. */
+function drawNowLine(cols) {
   const old = document.getElementById('nowline');
   if (old) old.remove();
-  if (!isToday || nowMins < OPEN_HOUR*60 || nowMins > CLOSE_HOUR*60) return;
+
+  const now = new Date();
+  const nowMins = now.getHours()*60 + now.getMinutes();
+  if (nowMins < OPEN_HOUR*60 || nowMins > CLOSE_HOUR*60) return;
+
+  const idx = cols.findIndex(c => sameDay(c.date, startOfToday()));
+  if (idx === -1) return;
+
   const grid  = document.getElementById('grid');
-  const headH = grid.querySelector('.head').offsetHeight;
+  const heads = grid.querySelectorAll('.head');
+  const cell  = heads[idx + 1];
+  if (!cell) return;
+
   const slotH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-h'));
   const line  = el('div');
   line.id = 'nowline';
-  line.style.top = `${headH + ((nowMins - OPEN_HOUR*60) / SLOT_MINUTES) * slotH}px`;
+  line.style.top   = `${heads[0].offsetHeight + ((nowMins - OPEN_HOUR*60) / SLOT_MINUTES) * slotH}px`;
+  line.style.left  = `${cell.offsetLeft}px`;
+  line.style.width = `${cell.offsetWidth}px`;
   line.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#D6E840"/><g fill="#0C2A57"><circle cx="9" cy="9" r="2"/><circle cx="16" cy="11" r="2"/><circle cx="11" cy="16" r="2"/></g></svg>';
   grid.appendChild(line);
 }
@@ -316,14 +424,15 @@ function jumpToNow() {
 }
 
 /* ---------- booking dialog ---------- */
-function openDialog(court, startMins) {
-  pending = { court, startMins };
+function openDialog(date, crt, startMins) {
+  pending = { date, court: crt, startMins };
+  const list = bookingsFor(date, crt);
 
   let free = 0;
   for (let i = 1; i <= MAX_SLOTS; i++) {
     const s = startMins + (i-1) * SLOT_MINUTES;
     if (s + SLOT_MINUTES > CLOSE_HOUR*60) break;
-    if (bookings.some(b => b.court === court && hmToMins(b.start) <= s && hmToMins(b.end) > s)) break;
+    if (list.some(b => hmToMins(b.start) <= s && hmToMins(b.end) > s)) break;
     free = i;
   }
 
@@ -334,9 +443,9 @@ function openDialog(court, startMins) {
     sel.appendChild(new Option(mins >= 60 ? `${mins/60} hr` : `${mins} min`, mins));
   }
 
-  document.getElementById('dlgCourt').textContent = court;
+  document.getElementById('dlgCourt').textContent = crt;
   document.getElementById('dlgWhen').textContent =
-    `${viewDate.toLocaleDateString(undefined,{weekday:'long', day:'numeric', month:'long'})} \u00b7 from ${minsToHM(startMins)}`;
+    `${date.toLocaleDateString(undefined,{weekday:'long', day:'numeric', month:'long'})} \u00b7 from ${minsToHM(startMins)}`;
   document.getElementById('dlgErr').textContent = '';
   document.getElementById('dlg').showModal();
   document.getElementById('fName').focus();
@@ -345,11 +454,15 @@ function openDialog(court, startMins) {
 document.getElementById('cancel').onclick = () => document.getElementById('dlg').close();
 
 document.getElementById('confirm').onclick = async () => {
-  const name = document.getElementById('fName').value.trim();
-  const code = document.getElementById('fCode').value;
-  const err  = document.getElementById('dlgErr');
-  if (!name) { err.textContent = 'Add a name so people know whose slot it is.'; return; }
-  if (!code) { err.textContent = 'The member code is required.'; return; }
+  const name  = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const code  = document.getElementById('fCode').value;
+  const err   = document.getElementById('dlgErr');
+  if (!name)  { err.textContent = 'Add a name so people know whose slot it is.'; return; }
+  if (phone.replace(/\D/g, '').length < 7) {
+    err.textContent = 'Enter a mobile number we can reach you on.'; return;
+  }
+  if (!code)  { err.textContent = 'The access code is required.'; return; }
 
   const btn = document.getElementById('confirm');
   btn.disabled = true; btn.textContent = 'Booking\u2026';
@@ -361,18 +474,18 @@ document.getElementById('confirm').onclick = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        date:  ymd(viewDate),
+        date:  ymd(pending.date),
         court: pending.court,
         start: minsToHM(pending.startMins),
         end:   minsToHM(pending.startMins + mins),
-        name, code
+        name, phone, code
       })
     });
-    const data = await res.json();
-    if (!data.ok) { err.textContent = data.error; return; }
+    const body = await res.json();
+    if (!body.ok) { err.textContent = body.error; return; }
     document.getElementById('dlg').close();
     document.getElementById('fName').value = '';
-    setStatus(`Booked \u2014 ${pending.court}, ${minsToHM(pending.startMins)} to ${minsToHM(pending.startMins+mins)}. See you at Garaje.`, 'ok');
+    setStatus(`Booked \u2014 ${pending.court}, ${pending.date.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'})}, ${minsToHM(pending.startMins)} to ${minsToHM(pending.startMins+mins)}. See you at Garaje.`, 'ok');
     load();
   } catch (e) {
     err.textContent = 'The booking service did not respond. Try again.';
@@ -380,6 +493,17 @@ document.getElementById('confirm').onclick = async () => {
     btn.disabled = false; btn.textContent = 'Book your game';
   }
 };
+
+/* ---------- controls ---------- */
+const step = n => { anchor = addDays(anchor, n * 7); load(); };
+document.getElementById('prev').onclick  = () => step(-1);
+document.getElementById('next').onclick  = () => step(1);
+document.getElementById('today').onclick = () => { anchor = startOfToday(); firstPaint = true; load(); };
+
+const picker = document.getElementById('courtPick');
+COURTS.forEach(c => picker.appendChild(new Option(c, c)));
+picker.value = court;
+picker.onchange = () => { court = picker.value; safeRender(); };
 
 /* ---------- misc ---------- */
 function el(tag, cls, text) {
@@ -397,12 +521,13 @@ function setStatus(msg, kind) {
   n.className = kind || '';
 }
 
-document.getElementById('prev').onclick = () => { viewDate = addDays(viewDate, -1); load(); };
-document.getElementById('next').onclick = () => { viewDate = addDays(viewDate,  1); load(); };
-document.getElementById('jump').onclick = () => { viewDate = startOfToday(); firstPaint = true; load(); };
-
 load();
-setInterval(load, 45000);   // poll, so other people's bookings appear
+
+// Poll only while someone is looking. A tab left open in the background
+// would otherwise burn through the Apps Script daily runtime quota.
+setInterval(() => { if (!document.hidden) load(); }, POLL_SECONDS * 1000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+window.addEventListener('resize', () => drawNowLine(columns()));
 </script>
 </body>
 </html>
