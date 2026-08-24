@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book your game — Garaje Backyard Gamezone</title>
+<meta name="description" content="Reserve a court at Garaje Backyard Gamezone, Mandug, Davao City. Open daily, 5am to 12am.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C2A57;
+  --navy-deep:#071B3A;
+  --blue:#1E73D4;
+  --blue-soft:#4A9BEA;
+  --blue-wash:#E3EFFC;
+  --ball:#D6E840;
+  --court:#2F8FCB;
+  --paper:#F3F6FA;
+  --white:#FFFFFF;
+  --ink:#0C2A57;
+  --mute:#6B7E99;
+  --slot-h:40px;
+  --gutter:clamp(14px,3.5vw,34px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:'Barlow',system-ui,sans-serif;font-size:15px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 var(--gutter) 0}
+
+/* ---------- masthead ---------- */
+.top{background:var(--navy);color:var(--white);position:relative;overflow:hidden}
+.top::after{ /* the paint swipe, the flyer's signature device */
+  content:'';position:absolute;left:-4%;right:-4%;bottom:-16px;height:76px;background:var(--blue);
+  clip-path:polygon(0 42%,7% 24%,19% 36%,31% 18%,44% 33%,58% 15%,71% 31%,84% 17%,94% 30%,100% 20%,100% 100%,0 100%);
+  opacity:.95;
+}
+.top .wrap{position:relative;z-index:2;padding-top:26px;padding-bottom:34px}
+.mark{font-family:'Anton',sans-serif;font-size:clamp(42px,10vw,78px);line-height:.82;letter-spacing:.01em;margin:0}
+.mark em{font-style:normal;color:var(--blue-soft)}
+.sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.19em;font-size:clamp(11px,2.4vw,14px);margin:6px 0 0;color:var(--white);opacity:.82}
+.tag{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:clamp(17px,3.6vw,24px);margin:14px 0 0;color:var(--ball);letter-spacing:.02em}
+.tag .ball{display:inline-block;width:15px;height:15px;vertical-align:-2px;margin-right:7px}
+
+/* ---------- date stepper ---------- */
+.bar{background:var(--navy-deep);color:var(--white)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding-top:11px;padding-bottom:11px}
+.dates{display:flex;align-items:center;gap:3px}
+.dates button{font:700 15px/1 'Barlow Condensed',sans-serif;color:var(--white);background:rgba(255,255,255,.09);
+  border:0;padding:9px 14px;cursor:pointer;letter-spacing:.05em}
+.dates button:hover:not(:disabled){background:var(--blue)}
+.dates button:disabled{opacity:.25;cursor:not-allowed}
+#dateLabel{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.09em;font-size:16px;padding:0 12px;min-width:158px;text-align:center}
+#jump{font:700 11px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+  background:transparent;border:1px solid rgba(255,255,255,.3);color:var(--white);padding:8px 12px;cursor:pointer}
+#jump:hover{border-color:var(--ball);color:var(--ball)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+
+/* ---------- the court grid ---------- */
+.court{margin:22px 0 0;background:var(--white);border:2px solid var(--navy);
+  box-shadow:6px 6px 0 rgba(12,42,87,.12);overflow-x:auto}
+.grid{display:grid;min-width:400px;position:relative}
+.head{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.11em;
+  font-size:14px;padding:11px 12px;background:var(--navy);color:var(--white);position:sticky;top:0;z-index:4}
+.head.corner{background:var(--navy)}
+.time{font-size:11px;font-weight:600;color:var(--mute);padding:3px 9px 0 0;text-align:right;
+  height:var(--slot-h);border-right:2px solid var(--navy);letter-spacing:.04em}
+.slot{height:var(--slot-h);width:100%;background:transparent;border:0;
+  border-right:1px solid var(--blue-wash);border-bottom:1px solid var(--blue-wash);
+  cursor:pointer;display:block;padding:0;font:inherit;transition:background .12s ease}
+.slot:hover{background:var(--blue-wash)}
+.slot.past{cursor:not-allowed;background:repeating-linear-gradient(45deg,transparent 0 5px,rgba(107,126,153,.13) 5px 6px)}
+.slot.past:hover{background:repeating-linear-gradient(45deg,transparent 0 5px,rgba(107,126,153,.13) 5px 6px)}
+.taken{height:var(--slot-h);background:var(--blue);color:var(--white);
+  border-right:1px solid var(--white);border-bottom:1px solid rgba(255,255,255,.25);padding:4px 10px;overflow:hidden}
+.taken.mid{border-bottom-color:transparent}
+.taken b{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:14px;display:block;line-height:1.1}
+.taken small{font-size:10px;opacity:.8;letter-spacing:.05em;font-weight:600}
+#nowline{position:absolute;left:0;right:0;height:2px;background:var(--ball);pointer-events:none;z-index:3}
+#nowline svg{position:absolute;left:-7px;top:-6px}
+
+/* ---------- status + legend ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;font-size:12px;color:var(--mute);
+  font-weight:600;letter-spacing:.04em}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:6px;vertical-align:-1px;border:1px solid #C9D6E6}
+#status{margin:12px 0 0;font-size:13px;min-height:20px;font-weight:600;letter-spacing:.02em}
+#status.err{color:#C0392B}
+#status.ok{color:#127A4B}
+
+/* ---------- footer, echoing the flyer's info strip ---------- */
+footer{margin-top:34px;background:var(--navy);color:var(--white)}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:rgba(255,255,255,.14)}
+.info div{background:var(--navy);padding:18px 20px}
+.info h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.15em;font-size:11px;margin:0 0 5px;color:var(--ball)}
+.info p{margin:0;font-size:14px;line-height:1.4;opacity:.92}
+.info a{color:var(--white)}
+.rule{height:7px;background:var(--blue)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- booking dialog ---------- */
+dialog{border:2px solid var(--navy);background:var(--white);color:var(--ink);padding:0;
+  max-width:390px;width:calc(100vw - 28px);box-shadow:8px 8px 0 rgba(12,42,87,.2)}
+dialog::backdrop{background:rgba(7,27,58,.76)}
+.dlg{padding:0 22px 22px}
+.dlg header{background:var(--navy);color:var(--white);margin:0 -22px 18px;padding:16px 22px}
+.dlg h2{font-family:'Anton',sans-serif;font-size:26px;margin:0;letter-spacing:.01em;line-height:1}
+.dlg p.when{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;
+  text-transform:uppercase;font-size:14px;color:var(--ball);margin:4px 0 0;letter-spacing:.05em}
+label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.15em;color:var(--mute);margin-bottom:5px}
+input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom:15px;
+  border:2px solid var(--navy);background:var(--white);color:var(--ink);border-radius:0}
+.actions{display:flex;gap:8px;margin-top:2px}
+.actions button{flex:1;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;
+  text-transform:uppercase;letter-spacing:.11em;padding:13px;border:2px solid var(--navy);cursor:pointer;border-radius:0}
+.primary{background:var(--blue);color:var(--white);border-color:var(--blue)}
+.primary:hover{background:var(--navy)}
+.primary:disabled{opacity:.55;cursor:wait}
+.ghost{background:transparent;color:var(--navy)}
+.ghost:hover{background:var(--blue-wash)}
+#dlgErr{color:#C0392B;font-size:13px;font-weight:600;min-height:18px;margin:0 0 8px}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <h1 class="mark">GARA<em>JE</em></h1>
+    <p class="sub">Backyard Gamezone &middot; Mandug, Davao City</p>
+    <p class="tag"><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#D6E840"/><g fill="#0C2A57"><circle cx="8" cy="8" r="1.6"/><circle cx="16" cy="9" r="1.6"/><circle cx="12" cy="14" r="1.6"/><circle cx="6" cy="15" r="1.4"/><circle cx="18" cy="16" r="1.4"/></g></svg>Our space. Our game.</p>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="dates">
+      <button id="prev" aria-label="Previous day">&larr;</button>
+      <div id="dateLabel">&mdash;</div>
+      <button id="next" aria-label="Next day">&rarr;</button>
+    </div>
+    <button id="jump">Jump to now</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="court"><div class="grid" id="grid"></div></div>
+  <div class="legend">
+    <span><i style="background:#fff"></i>Open</span>
+    <span><i style="background:var(--blue);border-color:var(--blue)"></i>Taken</span>
+    <span><i style="background:var(--ball);border-color:var(--ball)"></i>Right now</span>
+  </div>
+  <p id="status"></p>
+</div>
+
+<footer>
+  <div class="rule"></div>
+  <div class="info">
+    <div>
+      <h3>Where</h3>
+      <p>Ph4 Milkfish Street, DDF Village,<br>Mandug, Davao City</p>
+    </div>
+    <div>
+      <h3>Open</h3>
+      <p>Monday to Sunday<br>5:00am &ndash; 12:00am</p>
+    </div>
+    <div>
+      <h3>Questions</h3>
+      <p><a href="https://facebook.com/akiridyoy">facebook.com/akiridyoy</a></p>
+    </div>
+  </div>
+</footer>
+
+<dialog id="dlg">
+  <form method="dialog" class="dlg">
+    <header>
+      <h2 id="dlgCourt">Court</h2>
+      <p class="when" id="dlgWhen"></p>
+    </header>
+    <label for="fName">Your name</label>
+    <input id="fName" maxlength="40" autocomplete="name" required>
+    <label for="fLen">How long</label>
+    <select id="fLen"></select>
+    <label for="fCode">Member code</label>
+    <input id="fCode" type="password" autocomplete="off" required>
+    <p id="dlgErr"></p>
+    <div class="actions">
+      <button type="button" class="ghost" id="cancel">Cancel</button>
+      <button type="button" class="primary" id="confirm">Book your game</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+/* ============================================================
+   CONFIG — set SCRIPT_URL after you deploy the Apps Script.
+   These values must match the ones in Code.gs.
+   ============================================================ */
+const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxWd30XS4_MQ2uJ8kKZs8GjX-oFZFk-5nAX4OkcKC_AsF5TkF7YxTnu33QAP2z2DQxAQg/exec';
+const COURTS       = ['Court 1'];
+const OPEN_HOUR    = 5;      // first slot starts 05:00
+const CLOSE_HOUR   = 24;     // last slot ends 24:00 (midnight)
+const SLOT_MINUTES = 60;
+const MAX_SLOTS    = 12;      // 12 x 60min = 24 hour ceiling
+const DAYS_AHEAD   = 1;
+
+/* ---------- date helpers (all local time, no UTC anywhere) ---------- */
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
+const addDays = (d, n) => { const c = new Date(d); c.setDate(c.getDate()+n); return c; };
+const minsToHM = m => `${pad(Math.floor(m/60))}:${pad(m%60)}`;
+const hmToMins = s => { const [h,m] = s.split(':').map(Number); return h*60+m; };
+
+const SLOT_STARTS = [];
+for (let m = OPEN_HOUR*60; m < CLOSE_HOUR*60; m += SLOT_MINUTES) SLOT_STARTS.push(m);
+
+let viewDate = startOfToday();
+let bookings = [];
+let pending  = null;
+let firstPaint = true;
+
+/* ---------- data ---------- */
+async function load() {
+  setStatus('Loading bookings\u2026');
+  try {
+    const res  = await fetch(`${SCRIPT_URL}?date=${ymd(viewDate)}`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Could not read the calendar.');
+    bookings = data.bookings;
+    setStatus('');
+  } catch (err) {
+    bookings = [];
+    setStatus('Cannot reach the booking service. Check the script URL, and that the web app is deployed for "Anyone".', 'err');
+  }
+  render();
+}
+
+/* ---------- rendering ---------- */
+function render() {
+  document.getElementById('dateLabel').textContent =
+    viewDate.toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'short' });
+  document.getElementById('prev').disabled = ymd(viewDate) === ymd(startOfToday());
+  document.getElementById('next').disabled = ymd(viewDate) === ymd(addDays(startOfToday(), DAYS_AHEAD));
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  grid.style.gridTemplateColumns = `54px repeat(${COURTS.length}, minmax(120px, 1fr))`;
+
+  grid.appendChild(el('div', 'head corner'));
+  COURTS.forEach(c => grid.appendChild(el('div', 'head', c)));
+
+  const isToday = ymd(viewDate) === ymd(startOfToday());
+  const now = new Date();
+  const nowMins = now.getHours()*60 + now.getMinutes();
+
+  SLOT_STARTS.forEach(startMins => {
+    grid.appendChild(el('div', 'time', startMins % 60 === 0 ? minsToHM(startMins) : ''));
+
+    COURTS.forEach(court => {
+      const hit = bookings.find(b =>
+        b.court === court && hmToMins(b.start) <= startMins && hmToMins(b.end) > startMins);
+
+      if (hit) {
+        const first = hmToMins(hit.start) === startMins;
+        const box = el('div', 'taken' + (first ? '' : ' mid'));
+        if (first) box.innerHTML =
+          `<b>${escapeHtml(hit.name)}</b><small>${hit.start}\u2013${hit.end}</small>`;
+        grid.appendChild(box);
+        return;
+      }
+
+      const past = isToday && startMins + SLOT_MINUTES <= nowMins;
+      const btn = el('button', 'slot' + (past ? ' past' : ''));
+      btn.type = 'button';
+      btn.disabled = past;
+      btn.setAttribute('aria-label', `Book ${court} at ${minsToHM(startMins)}`);
+      if (!past) btn.onclick = () => openDialog(court, startMins);
+      grid.appendChild(btn);
+    });
+  });
+
+  drawNowLine(isToday, nowMins);
+  if (firstPaint) { firstPaint = false; jumpToNow(); }
+}
+
+function drawNowLine(isToday, nowMins) {
+  const old = document.getElementById('nowline');
+  if (old) old.remove();
+  if (!isToday || nowMins < OPEN_HOUR*60 || nowMins > CLOSE_HOUR*60) return;
+  const grid  = document.getElementById('grid');
+  const headH = grid.querySelector('.head').offsetHeight;
+  const slotH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-h'));
+  const line  = el('div');
+  line.id = 'nowline';
+  line.style.top = `${headH + ((nowMins - OPEN_HOUR*60) / SLOT_MINUTES) * slotH}px`;
+  line.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#D6E840"/><g fill="#0C2A57"><circle cx="9" cy="9" r="2"/><circle cx="16" cy="11" r="2"/><circle cx="11" cy="16" r="2"/></g></svg>';
+  grid.appendChild(line);
+}
+
+function jumpToNow() {
+  const line = document.getElementById('nowline');
+  if (!line) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  line.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+}
+
+/* ---------- booking dialog ---------- */
+function openDialog(court, startMins) {
+  pending = { court, startMins };
+
+  let free = 0;
+  for (let i = 1; i <= MAX_SLOTS; i++) {
+    const s = startMins + (i-1) * SLOT_MINUTES;
+    if (s + SLOT_MINUTES > CLOSE_HOUR*60) break;
+    if (bookings.some(b => b.court === court && hmToMins(b.start) <= s && hmToMins(b.end) > s)) break;
+    free = i;
+  }
+
+  const sel = document.getElementById('fLen');
+  sel.innerHTML = '';
+  for (let i = 1; i <= free; i++) {
+    const mins = i * SLOT_MINUTES;
+    sel.appendChild(new Option(mins >= 60 ? `${mins/60} hr` : `${mins} min`, mins));
+  }
+
+  document.getElementById('dlgCourt').textContent = court;
+  document.getElementById('dlgWhen').textContent =
+    `${viewDate.toLocaleDateString(undefined,{weekday:'long', day:'numeric', month:'long'})} \u00b7 from ${minsToHM(startMins)}`;
+  document.getElementById('dlgErr').textContent = '';
+  document.getElementById('dlg').showModal();
+  document.getElementById('fName').focus();
+}
+
+document.getElementById('cancel').onclick = () => document.getElementById('dlg').close();
+
+document.getElementById('confirm').onclick = async () => {
+  const name = document.getElementById('fName').value.trim();
+  const code = document.getElementById('fCode').value;
+  const err  = document.getElementById('dlgErr');
+  if (!name) { err.textContent = 'Add a name so people know whose slot it is.'; return; }
+  if (!code) { err.textContent = 'The member code is required.'; return; }
+
+  const btn = document.getElementById('confirm');
+  btn.disabled = true; btn.textContent = 'Booking\u2026';
+  const mins = Number(document.getElementById('fLen').value);
+
+  try {
+    // text/plain keeps this a "simple" request — Apps Script cannot answer a CORS preflight
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        date:  ymd(viewDate),
+        court: pending.court,
+        start: minsToHM(pending.startMins),
+        end:   minsToHM(pending.startMins + mins),
+        name, code
+      })
+    });
+    const data = await res.json();
+    if (!data.ok) { err.textContent = data.error; return; }
+    document.getElementById('dlg').close();
+    document.getElementById('fName').value = '';
+    setStatus(`Booked \u2014 ${pending.court}, ${minsToHM(pending.startMins)} to ${minsToHM(pending.startMins+mins)}. See you at Garaje.`, 'ok');
+    load();
+  } catch (e) {
+    err.textContent = 'The booking service did not respond. Try again.';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Book your game';
+  }
+};
+
+/* ---------- misc ---------- */
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls)  n.className = cls;
+  if (text) n.textContent = text;
+  return n;
+}
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function setStatus(msg, kind) {
+  const n = document.getElementById('status');
+  n.textContent = msg;
+  n.className = kind || '';
+}
+
+document.getElementById('prev').onclick = () => { viewDate = addDays(viewDate, -1); load(); };
+document.getElementById('next').onclick = () => { viewDate = addDays(viewDate,  1); load(); };
+document.getElementById('jump').onclick = () => { viewDate = startOfToday(); firstPaint = true; load(); };
+
+load();
+setInterval(load, 45000);   // poll, so other people's bookings appear
+</script>
+</body>
+</html>
