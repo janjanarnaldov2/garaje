@@ -211,6 +211,9 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
     <label for="fPhone">Mobile number</label>
     <input id="fPhone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel"
            placeholder="09XX XXX XXXX" required>
+    <label for="fFb">Facebook or Messenger name <span style="opacity:.6">(optional)</span></label>
+    <input id="fFb" maxlength="100" autocomplete="off"
+           placeholder="fb.com/yourname or your FB name">
     <label for="fLen">How long</label>
     <select id="fLen"></select>
     <label for="fCode">Access code</label>
@@ -227,7 +230,7 @@ input,select{width:100%;font:15px 'Barlow',sans-serif;padding:10px;margin-bottom
 /* ============================================================
    CONFIG — these must match the values in Code.gs.
    ============================================================ */
-const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbzmuJBr99SZj_fbUwodl9GY0oqLwctaeUPFIeXwLAUUSOp5dckpRvfj2jJ76ke0BjrOmQ/exec';
+const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycby91-YktsnCsMa5YtWJOdjJwgRIEtOPY7fTfLUAQivq7z2zEPDMOWw9n8rjaW8zOS8YJQ/exec';
 const COURTS       = ['Court 1'];
 const OPEN_HOUR    = 5;      // first slot starts 05:00
 const CLOSE_HOUR   = 24;     // last slot ends 24:00 (midnight)
@@ -456,6 +459,7 @@ document.getElementById('cancel').onclick = () => document.getElementById('dlg')
 document.getElementById('confirm').onclick = async () => {
   const name  = document.getElementById('fName').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
+  const fb    = document.getElementById('fFb').value.trim();
   const code  = document.getElementById('fCode').value;
   const err   = document.getElementById('dlgErr');
   if (!name)  { err.textContent = 'Add a name so people know whose slot it is.'; return; }
@@ -478,7 +482,7 @@ document.getElementById('confirm').onclick = async () => {
         court: pending.court,
         start: minsToHM(pending.startMins),
         end:   minsToHM(pending.startMins + mins),
-        name, phone, code
+        name, phone, fb, code
       })
     });
     const body = await res.json();
